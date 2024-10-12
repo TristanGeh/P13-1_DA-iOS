@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct ListClientsView: View {
-    @State var clientsList: [Client] = ModelData.chargement("Source.json")
     @State private var showModal: Bool = false
+    @EnvironmentObject private var viewModel: ClientListViewModel
     
     var body: some View {
         NavigationStack {
-            List(clientsList, id: \.self) { client in
+            List(viewModel.clientsList, id: \.self) { client in
                 NavigationLink {
                     DetailClientView(client: client)
                 } label: {
@@ -41,4 +41,5 @@ struct ListClientsView: View {
 
 #Preview {
     ListClientsView()
+        .environmentObject(ClientListViewModel())
 }
